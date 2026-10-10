@@ -1,4 +1,4 @@
-# Cold Email Agent
+# Agentic agent for sending Cold Email
 
 An agentic AI app that generates high-converting B2B cold emails using **Google Gemini**, built with **FastAPI** (Python) and **React + Tailwind CSS**.
 
