@@ -1,9 +1,10 @@
-import axios from "axios";
+import axios from 'axios';
 
 const api = axios.create({
-  baseURL: "/api",
-  headers: { "Content-Type": "application/json" },
+  baseURL: "https://cold-email-agent-2ge9.onrender.com",
 });
+
+export default api;
 
 export const generateEmail = async (formData) => {
   const response = await api.post("/generate-email", formData);
