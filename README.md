@@ -40,3 +40,19 @@ cold-email-agent/
     │       └── Skeleton.jsx
     ├── package.json
     └── vite.config.js
+
+## Project Structur
+
+cd cold-email-agent\backend
+
+# Copy env file and add your Gemini API key
+Copy-Item .env.example .env
+notepad .env   # Set GEMINI_API_KEY=your_key_here without quotes
+
+# Create virtual environment and install dependencies
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+
+# Start the local development server
+uvicorn main:app --reload --port 8000
