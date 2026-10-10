@@ -10,10 +10,15 @@ load_dotenv()
 
 app = FastAPI(title="Cold Email Agent API", version="1.0.0")
 
-# Allow frontend to talk to backend
+# Allow requests from local environments and production Vercel frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173"],
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:5173",
+        "https://cold-email-agent-blue.vercel.app",
+        "*"  # Allows all origins in production
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -59,6 +64,7 @@ Your task: Generate a personalized, concise, and persuasive cold outreach email.
 
 Strict rules:
 1. Subject Lines: Generate exactly 3 punchy subject lines (1-4 words each). AVOID spam triggers like FREE, Urgent, Limited time, Guarantee.
+
 2. Pitch Structure:
    - Hook: Start with a specific, relevant hook based on the prospect's pain point or industry insight. NEVER start with "I hope this email finds you well."
    - Value Proposition: State the problem solved and tangible outcome in 1-2 sentences.
@@ -98,9 +104,9 @@ Remember: Body must be UNDER 100 words.
             [SYSTEM_PROMPT, user_prompt],
             generation_config=genai.types.GenerationConfig(
                 temperature=0.7,
-                max_output_tokens=2048,  # Increased token limit to prevent truncation
+                max_output_tokens=2048,
                 response_mime_type="application/json",
-                response_schema=EmailSchema,  # Native Pydantic structured output
+                response_schema=EmailSchema,
             ),
         )
 
