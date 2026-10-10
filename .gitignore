@@ -1,0 +1,20 @@
+# Environment & Secret files
+.env
+.env.local
+.env.*.local
+
+# Python virtual environment & cache
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Node / Frontend build files
+node_modules/
+.next/
+dist/
+build/
+
+# Operating System files
+.DS_Store
+Thumbs.db
