@@ -24,9 +24,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Configure Gemini
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+# Fetch API key supporting both variable names
+api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
 
+if not api_key:
+    raise RuntimeError("Neither GEMINI_API_KEY nor GOOGLE_API_KEY environment variable is set.")
+
+# Configure Gemini explicitly with key
+genai.configure(api_key=api_key.strip())
 
 # Request Model from Frontend
 class EmailRequest(BaseModel):
@@ -55,7 +60,7 @@ class EmailResponse(BaseModel):
     tone_notes: str
 
 
-# Initialize Model using gemini-3.8-flash
+# Initialize Model using active gemini-3.8-flash
 model = genai.GenerativeModel("gemini-3.8-flash")
 
 SYSTEM_PROMPT = """You are an expert B2B Copywriter and Cold Email Specialist focused on high deliverability and high conversion rates.
